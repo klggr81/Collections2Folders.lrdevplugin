@@ -1,34 +1,44 @@
 local LrExportSession = import 'LrExportSession'
+
 local Utils = require 'Utils'
 
-local function exportCollection(collection, path, exportSettings) 
+-- Exports one collection into its mirrored folder and returns the photo count.
+-- Must run on a task, since it drives the export session on the current one.
+local function exportCollection(collection, rootPath, exportSettings)
   local photos = collection:getPhotos()
-
-  if (Utils.len(photos) == 0) then
-    return
+  if #photos == 0 then
+    return 0
   end
 
-  local folderName = collection:getName():gsub("/", '-'):gsub(":", "-"):gsub("!", ""):gsub("?", ""):gsub("¿", ""):gsub("¡", "")
-  local outputPath = Utils.defineDestination(path, folderName)
+  local outputPath = Utils.collectionDestination(collection, rootPath)
 
-  if not exportSettings then
-    exportSettings = Utils.loadExportSettings()
+  local settings = {}
+  for key, value in pairs(exportSettings or {}) do
+    settings[key] = value
   end
-  exportSettings['LR_export_destinationType'] = "specificFolder"
-  exportSettings['LR_export_destinationPathPrefix'] = outputPath
-  exportSettings['LR_export_useSubfolder'] = false
-  local renameEx = exportSettings
 
-  local exportSession = LrExportSession({
+  -- The preset's own destination is whatever the user last exported to,
+  -- so override it rather than inherit it.
+  settings.LR_export_destinationType = 'specificFolder'
+  settings.LR_export_destinationPathPrefix = outputPath
+  settings.LR_export_destinationPathSuffix = ''
+  settings.LR_export_useSubfolder = false
+  settings.LR_export_useParentFolder = false
+
+  if settings.LR_exportServiceProvider == nil then
+    settings.LR_exportServiceProvider = 'com.adobe.ag.export.file'
+    settings.LR_exportServiceProviderTitle = 'Hard Drive'
+  end
+
+  local session = LrExportSession({
     photosToExport = photos,
-    exportSettings = renameEx,
-    outputPath = outputPath,
+    exportSettings = settings,
   })
+  session:doExportOnCurrentTask()
 
-  exportSession:doExportOnCurrentTask()
+  return #photos
 end
 
 return {
-  exportCollection = exportCollection
+  exportCollection = exportCollection,
 }
-

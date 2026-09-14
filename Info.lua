@@ -5,16 +5,12 @@ return {
   LrPluginName = "Collections2Folders",
   LrPluginInfoUrl = "https://github.com/amda-phd/Collections2Folders.lrdevplugin",
   LrPluginAuthor = "amda",
-  LrPluginVersion = "1.0.0",
+  LrPluginVersion = "2.0.0",
   LrPluginDescription = "Export collections and collection sets hierarchy as folders.",
   LrExportMenuItems = {
-      {
-          title = "Select and export one collection set",
-          file = "ExportCollectionSetGUI.lua",
-      },
-      {
-        title = "Export all the collection sets in the catalog",
-        file = "ExportAllCollectionSetsGUI.lua",
+    {
+      title = "Export collections to folders",
+      file = "ExportAllCollectionSetsGUI.lua",
     },
   },
   UUID = "C728DAA1-036A-4C0A-94D2-7ABECD0EB4C6",
