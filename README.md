@@ -2,6 +2,11 @@
 
 ![Adobe Lightroom Classic](https://img.shields.io/badge/Adobe%20Lightroom%20Classic-31A8FF.svg?style=for-the-badge&logo=Adobe%20Lightroom%20Classic&logoColor=white)![Lua](https://img.shields.io/badge/lua-%232C2D72.svg?style=for-the-badge&logo=lua&logoColor=white)
 
+> **This is a maintained fork.** The original by [amda](https://github.com/amda-phd)
+> has had no commits since April 2024. This fork is version 2.0, which rewrote the
+> interface and fixed the bugs that stopped the original from working on current
+> Lightroom Classic releases. Issues and pull requests here are welcome.
+
 Export Lightroom Classic collections to disk as a folder tree that mirrors your
 catalog's collection hierarchy.
 
