@@ -3,18 +3,18 @@
 ![Adobe Lightroom Classic](https://img.shields.io/badge/Adobe%20Lightroom%20Classic-31A8FF.svg?style=for-the-badge&logo=Adobe%20Lightroom%20Classic&logoColor=white)![Lua](https://img.shields.io/badge/lua-%232C2D72.svg?style=for-the-badge&logo=lua&logoColor=white)
 
 > **This is a maintained fork.** The original by [amda](https://github.com/amda-phd)
-> has had no commits since April 2024. This fork is version 2.0, which rewrote the
-> interface and fixed the bugs that stopped the original from working on current
-> Lightroom Classic releases. Issues and pull requests here are welcome.
+> has had no commits since April 2024. This fork is version 2.0, which rewrote
+> the interface and fixed the bugs that stopped the original from working on
+> current Lightroom Classic releases. Issues and pull requests here are welcome.
 
-Export Lightroom Classic collections to disk as a folder tree that mirrors your
+The plugin exports collections to disk as a folder tree that mirrors your
 catalog's collection hierarchy.
 
-Lightroom can export the photos in a collection, but it cannot export many
-collections at once, and it cannot reproduce your collection set structure as
-folders. This plugin does both: tick the collections you want, choose a
-destination and an export preset, and every collection lands in its own folder
-nested exactly the way it is nested in the catalog.
+Lightroom Classic can export the photos in a collection, or multiple
+collections into a single folder only. It cannot reproduce your collection
+set structure as folders. This plugin does exactly that: tick the collections
+you want, choose a destination and an export preset, and every collection
+lands in its own folder nested exactly the way it is nested in the catalog.
 
 ![The Export collections to folders dialog, showing the collection checklist, the destination folder button and the export preset dropdown](assets/export-dialog.png)
 
