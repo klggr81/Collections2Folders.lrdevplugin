@@ -46,9 +46,10 @@ function Utils.defineDestination(root, name)
   return Utils.createFolder(LrPathUtils.child(root, Utils.sanitize(name)))
 end
 
--- Mirrors the collection's place in the catalog hierarchy under root,
--- creating every folder on the way down.
-function Utils.collectionDestination(collection, root)
+-- Mirrors the collection's place in the catalog hierarchy under root.
+-- Returns the path and the folder names it is built from, and creates
+-- nothing, so the destination can be inspected before anything is written.
+function Utils.collectionPath(collection, root)
   local parts = {}
 
   local parent = collection:getParent()
@@ -62,7 +63,43 @@ function Utils.collectionDestination(collection, root)
   for _, part in ipairs(parts) do
     path = LrPathUtils.child(path, part)
   end
-  return Utils.createFolder(path)
+  return path, parts
+end
+
+-- Files the operating system drops into folders on its own.
+local function isSystemFile(path)
+  local name = LrPathUtils.leafName(path):lower()
+  return name:sub(1, 1) == '.' or name == 'thumbs.db' or name == 'desktop.ini'
+end
+
+-- Files directly inside path. Subfolders are left out, since they may hold
+-- the exports of a collection set that shares the folder's name.
+function Utils.filesIn(path)
+  local files = {}
+  if LrFileUtils.exists(path) ~= 'directory' then
+    return files
+  end
+
+  for file in LrFileUtils.files(path) do
+    if not isSystemFile(file) then
+      files[#files + 1] = file
+    end
+  end
+  return files
+end
+
+-- Moves each file to the Recycle Bin or Trash and returns the ones that are
+-- still there afterwards. Checking the disk rather than the return value
+-- covers file systems without a trash, where the move fails quietly.
+function Utils.moveToTrash(files)
+  local failed = {}
+  for _, file in ipairs(files) do
+    LrTasks.pcall(LrFileUtils.moveToTrash, file)
+    if LrFileUtils.exists(file) then
+      failed[#failed + 1] = file
+    end
+  end
+  return failed
 end
 
 function Utils.len(array)

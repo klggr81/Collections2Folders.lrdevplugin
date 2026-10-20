@@ -29,6 +29,7 @@ local function walk(parent, depth, nodes)
   local sets = toNodes(parent:getChildCollectionSets(), 'set', depth)
 
   for _, node in ipairs(collections) do
+    node.smart = node.object:isSmartCollection()
     nodes[#nodes + 1] = node
   end
 
