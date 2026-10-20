@@ -16,7 +16,7 @@ set structure as folders. This plugin does exactly that: tick the collections
 you want, choose a destination and an export preset, and every collection
 lands in its own folder nested exactly the way it is nested in the catalog.
 
-![The Export collections to folders dialog, showing the collection checklist, the destination folder button and the export preset dropdown](assets/export-dialog.png)
+![The Export collections to folders dialog, showing the collection checklist, the smart collections toggle, the photo filter, the destination folder button and the export preset dropdown](assets/export-dialog.png)
 
 ## Requirements
 
@@ -47,13 +47,20 @@ catalog takes a moment on large catalogs, then a single dialog opens.
 
 1. **Pick your collections.** Every collection in the catalog is listed,
    indented under its collection sets. Everything starts checked; use **Select
-   none** and tick what you want, or leave it to export the lot.
-2. **Choose a destination folder.** This is the root the folder tree is built
+   none** and tick what you want, or leave it to export the lot. Untick
+   **Include smart collections** to leave smart collections out.
+2. **Choose which photos.** Export all photos, or only those matching a flag,
+   a star rating and/or a colour label — combined with *all of* or *any of*.
+3. **Choose a destination folder.** This is the root the folder tree is built
    under. Required.
-3. **Choose an export preset.** Your saved Lightroom presets appear in the
+4. **Choose an export preset.** Your saved Lightroom presets appear in the
    dropdown, or leave it on **Lightroom defaults**.
-4. **Click Export.** A cancellable progress dialog names each collection as it
-   goes, and a summary reports what was written.
+5. **Click Export.** The plugin first checks the destination. If any
+   collection's folder already contains files, it asks whether to skip them,
+   overwrite them, keep both, skip those collections, or move the old files to
+   the Recycle Bin first. The progress window then counts down the photos
+   left; **Cancel** stops it within a few photos, and a summary reports what
+   was exported.
 
 Given a catalog where `Tokyo` and `Kyoto` sit inside the set `Travel > Japan
 2024`, exporting to `D:\Export` produces `D:\Export\Travel\Japan 2024\Tokyo\`
@@ -69,8 +76,8 @@ troubleshooting, and notes for developers — are in
 
 Originally written by [amda](https://github.com/amda-phd) at
 [amda-phd/Collections2Folders.lrdevplugin](https://github.com/amda-phd/Collections2Folders.lrdevplugin).
-This is a fork; see the [changelog](docs/technical.md#changelog) for what
-version 2.0 changed.
+This is a fork; see the [changelog](CHANGELOG.md) for what
+has changed since.
 
 The upstream repository carries no licence file, which means the original author
 retains all rights. Forking it on GitHub is permitted under GitHub's terms of

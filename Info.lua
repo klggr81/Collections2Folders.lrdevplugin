@@ -5,7 +5,9 @@ return {
   LrPluginName = "Collections2Folders",
   LrPluginInfoUrl = "https://github.com/amda-phd/Collections2Folders.lrdevplugin",
   LrPluginAuthor = "amda",
-  LrPluginVersion = "2.0.0",
+  -- Lightroom reads the version only from this table; a plain string under
+  -- any other key is ignored and the Plug-in Manager shows 1.0.
+  VERSION = { major = 2, minor = 1, revision = 0 },
   LrPluginDescription = "Export collections and collection sets hierarchy as folders.",
   LrExportMenuItems = {
     {
